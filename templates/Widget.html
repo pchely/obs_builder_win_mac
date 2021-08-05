@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Виджет ОБС</title>
+    <link rel="stylesheet" href="./static/style.css"/>
+    <link rel="shortcut icon" href="./static/foxford.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    @font-face {
+        font-family: "Circe Bold";
+        src: url("https://a.foxford.ngcdn.ru/assets/webpack/fonts/circe_bold.woff2") format("woff2");}
+    @font-face {
+        font-family: "Circe";
+        src: url("https://a.foxford.ngcdn.ru/assets/webpack/fonts/circe_regular.woff2") format("woff2");}
+    body {
+        font-family: "Circe", sans-serif;}
+    video {
+      z-index: 1;
+      opacity: 0;}
+    .titles.shown {
+        opacity: 1;
+        animation: t 2s;}
+    .titles.static_show {
+      opacity: 1;
+    }
+    .titles {
+        position: absolute;
+        top: 95px;
+        left: 198px;
+        color: white;
+        max-width: 650px;
+        opacity: 0;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none;   /* Chrome/Safari/Opera */
+        -khtml-user-select: none;    /* Konqueror */
+        -moz-user-select: none;      /* Firefox */
+        -ms-user-select: none;       /* Internet Explorer/Edge */
+        user-select: none;}
+    .titles .title {
+        font-family: "Circe Bold", sans-serif;
+        font-size: 48px;
+        margin: 0;}
+    .titles .subtitle {
+        font-size: 32px;
+        margin: -10px 0;}
+    @keyframes t {
+        0%   { opacity: 0; }
+        50%   { opacity: 0; }
+        100% { opacity: 1; }}
+    </style>
+
+</head>
+<body>
+	<video id="video" muted="muted" preload="auto" autoplay="true" playsinline>
+	<source src="{{ .Path }}" type="video/webm">
+	</video>
+	<div class="titles" draggable="true">
+	  <h1 class="title" id="title">{{ .Title }}</h1>
+	  <h2 class="subtitle" id="subtitle">{{ .Subtitle }}</h2>
+	</div>
+  <script>
+      let text = document.querySelector('.titles');
+      // let title = document.getElementById("title");
+      // let subtitle = document.getElementById("subtitle");
+
+
+          text.onmousedown = function(event) {
+
+            let shiftX = event.clientX - text.getBoundingClientRect().left;
+            let shiftY = event.clientY - text.getBoundingClientRect().top;
+
+            text.style.position = 'absolute';
+            text.style.zIndex = 1000;
+            text.style.opacity = 1;
+            // text.style.display = "block";
+            // text.classList.remove("shown");
+            // title.style.position = 'absolute';
+            // title.style.zIndex = 1000;
+            // title.style.color = "white";
+            // title.style.fontFamily = 'Circe Bold, sans-serif';
+            // title.style.fontSize = "48px";
+            // title.style.margin = 0;
+            //
+            //
+            // subtitle.style.position = 'absolute';
+            // subtitle.style.zIndex = 1000;
+            // subtitle.style.color = "white";
+            // subtitle.style.fontFamily = 'Circe Bold, sans-serif';
+            // subtitle.style.fontSize = "32px";
+            // subtitle.style.margin = 0;
+
+            document.body.append(text);
+
+            moveAt(event.pageX, event.pageY);
+
+            function moveAt(pageX, pageY) {
+              text.style.left = pageX - shiftX + 'px';
+              text.style.top = pageY - shiftY + 'px';
+            }
+
+            function onMouseMove(event) {
+              text.classList.remove("shown");
+              moveAt(event.pageX, event.pageY);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+
+            text.onmouseup = function() {
+              document.removeEventListener('mousemove', onMouseMove);
+              text.classList.add("shown");
+              text.onmouseup = null;
+            };
+
+          };
+          text.ondragstart = function() {
+            return false;
+          };
+  </script>
+	<script>
+	function Show() {
+    // document.querySelector(".titles").classList.remove("shown");
+	  document.querySelector("#video").currentTime = 0;
+	  document.querySelector("#video").play();
+	  document.querySelector("#video").style.opacity = 1;
+	  document.querySelector("body").style.opacity = 1;
+	  document.querySelector(".titles").classList.add("shown");
+	};
+	function Hide() {
+	  document.querySelector("body").animate([{ opacity: 0, easing: 'ease-out' }], 500).onfinish = function() {
+		  document.querySelector("#video").pause();
+		  document.querySelector("#video").currentTime = 0;
+		  document.querySelector(".titles").classList.remove("shown");
+		  document.querySelector("#video").style.opacity = 0;
+		  document.querySelector("body").style.opacity = 1;
+	  };
+	  document.querySelector(".titles").classList.add("shown")
+	};
+	</script>
+	<script type="text/javascript">
+	let status = false;
+	setInterval(function () {
+		let name = "{{ .Name }}";
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://localhost:8080/check_status/");
+    xhr.setRequestHeader("name_widget",name);
+		xhr.responseType = 'json';
+		xhr.send();
+		xhr.onload = function () {
+		$(".title").html(xhr.response["title"])
+		$(".subtitle").html(xhr.response["subtitle"])
+		if (xhr.response["status"]==false && status==false) {
+      console.log(xhr.response["status"],status)
+      status = true;
+      Hide();
+		}
+		else if (xhr.response["status"]==true && status==true) {
+		  console.log(xhr.response["status"],status)
+		  status = false;
+		  Show();
+    }
+  }
+},500);
+	</script>
+</body>
+</html>
