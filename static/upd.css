@@ -1,5 +1,11 @@
 h1,h2{
   text-align: center;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 
@@ -30,6 +36,39 @@ div#list_widgets{
   margin-left: 15px;
   padding-left: 20px;
 }
+
+
+div#label_widget_id{
+  margin-top: 15px;
+  margin-bottom: -15px;
+  margin-left: 10px;
+}
+
+#labels{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+  background-color: #DCDCDC;
+  border-radius: 5px;
+  border: 3px solid #DCDCDC;"
+}
+
+
+#labels:hover{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+  background-color: #DCDCDC;
+  border-radius: 5px;
+  border: 3px solid #C0C0C0;"
+}
+
 
 .btn-group{
   margin: 10px;
