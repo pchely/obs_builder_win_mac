@@ -81,7 +81,7 @@ function Show_Info(obj) {
   xhr.responseType = 'json';
   xhr.send();
   xhr.onload = function () {
-    alert(fix_name+"\n"+xhr.response.title+"\n"+xhr.response.subtitle);
+    alert(fix_name+"\n"+xhr.response.title+"\n"+xhr.response.subtitle+"\n"+xhr.response.title_size+"\n"+xhr.response.subtitle_size);
   }
 };
 
