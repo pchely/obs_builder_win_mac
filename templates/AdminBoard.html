@@ -14,7 +14,7 @@
   <h1 class="head_h1">{{ .Textpanel }}<img src="./static/fox_start_page.png" align="middle" width="80" height="80"></h1>
 <div class="container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-md-auto">
       <h2 id="admin_board"><span class="badge bg-info text-dark">Создать виджет</span></h2>
       <form class="left" action="/create_widget/" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
@@ -46,7 +46,7 @@
         </form>
       </div>
 
-      <div class="col-5">
+      <div class="col-md-auto">
         <h2 id="admin_board"><span class="badge bg-info text-dark">Список виджетов</span></h2>
         <div id="list_widgets">
         {{ range .Name }}
@@ -94,7 +94,7 @@
         </div>
       </div>
 
-      <div class="col-3">
+      <div class="col-md-auto">
         <h2 id="admin_board"><span class="badge bg-info text-dark">Доп.функц(Beta)</span></h2>
 
         <h5>Выбранные виджеты:</h5>
