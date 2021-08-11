@@ -33,6 +33,15 @@
           	<label class="form-label">Subtitle:</label>
           	<input class="form-control" placeholder="Субтитр" id="subtitle" name="subtitle" type="text" size="40">
           </div>
+          <div class="mb-3">
+          	<label class="form-label">TitleSize:</label>
+          	<input class="form-control" placeholder="По умолчанию 48" id="title_size" name="title_size" type="text" size="40">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">SubtitleSize:</label>
+            <input class="form-control" placeholder="По умолчанию 32" id="subtitle_size" name="subtitle_size" type="text" size="40">
+          </div>
+
           <button id="add" type="submit" class="btn btn-primary">Добавить</button>
         </form>
       </div>
@@ -67,6 +76,17 @@
               <label for="subtitle" class="form-label">Subtitle:</label>
               <input placeholder="Изменить субтитр" id="name" class="form-control" name="subtitle" type="text">
             </div>
+
+            <div class="mb-3">
+              <label for="subtitle" class="form-label">TitleSize:</label>
+              <input placeholder="Обязательно заполнить, иначе будет ошибка!" id="name" class="form-control" name="title_size" type="text">
+            </div>
+
+            <div class="mb-3">
+              <label for="subtitle" class="form-label">SubtitleSize:</label>
+              <input placeholder="Обязательно заполнить, иначе будет ошибка!" id="name" class="form-control" name="subtitle_size" type="text">
+            </div>
+
             <button id="edit" type="submit" class="btn btn-success" onclick="HideFormEdit({{ . }})">Изменить</button>
           </form>
         <br>

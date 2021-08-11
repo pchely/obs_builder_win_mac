@@ -44,7 +44,7 @@
 </head>
 <body>
 	<video id="video" muted="muted" preload="auto" autoplay="true" playsinline>
-	<source src="{{ .Path }}" type="video/webm">
+	<source src="{{ .Path }}" type="video/webm;video/mp4">
 	</video>
 	<div class="titles">
 	  <h1 class="title" id="title">{{ .Title }}</h1>
@@ -80,20 +80,23 @@
 		xhr.responseType = 'json';
 		xhr.send();
 		xhr.onload = function () {
-		$(".title").html(xhr.response["title"])
-		$(".subtitle").html(xhr.response["subtitle"])
-		if (xhr.response["status"]==false && status==false) {
-      console.log(xhr.response["status"],status)
-      status = true;
-      Hide();
-		}
-		else if (xhr.response["status"]==true && status==true) {
-		  console.log(xhr.response["status"],status)
-		  status = false;
-		  Show();
+      let title = document.getElementById("title");
+      let subtitle = document.getElementById("subtitle");
+      title.style.fontSize = xhr.response["title_size"]+"px";
+      subtitle.style.fontSize = xhr.response["subtitle_size"]+"px"
+      $(".title").html(xhr.response["title"])
+      $(".subtitle").html(xhr.response["subtitle"])
+      if (xhr.response["status"]==false && status==false) {
+        console.log(xhr.response["status"],status)
+        status = true;
+        Hide();
+		  } else if (xhr.response["status"]==true && status==true) {
+        console.log(xhr.response["status"],status)
+		    status = false;
+		    Show();
+      }
     }
-  }
-},500);
+  },500);
 	</script>
 </body>
 </html>
